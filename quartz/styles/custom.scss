@@ -1,3 +1,220 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+// ===========================================================================
+// ARCH: Stack Overflow — Frutiger Aero theme
+//
+// The game is a 3D platformer set inside an early-2000s operating system, and
+// its art direction is Frutiger Aero: glossy surfaces, aero glass, gradients,
+// water, sky, humanist type. This stylesheet carries those traits across to
+// the documentation site. The palette lives in quartz.config.yaml.
+//
+// One constraint from the project's own art direction note, which applies here
+// too: "the world should stay genuinely attractive" — and readable. Gloss is
+// applied to chrome (sidebars, cards, headings), never to body text.
+// ===========================================================================
+
+// --- the page itself: sky above, water below --------------------------------
+// A fixed gradient rather than a flat fill. Subtle enough to read over; present
+// enough that the page does not look like a default template.
+body {
+  background-image:
+    radial-gradient(
+      ellipse 120% 80% at 50% -10%,
+      rgba(175, 226, 248, 0.55) 0%,
+      rgba(175, 226, 248, 0) 60%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 85% 105%,
+      rgba(96, 212, 174, 0.18) 0%,
+      rgba(96, 212, 174, 0) 55%
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+:root[saved-theme="dark"] body {
+  background-image:
+    radial-gradient(
+      ellipse 120% 80% at 50% -10%,
+      rgba(31, 109, 148, 0.45) 0%,
+      rgba(31, 109, 148, 0) 62%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 85% 105%,
+      rgba(50, 150, 125, 0.16) 0%,
+      rgba(50, 150, 125, 0) 55%
+    );
+}
+
+// --- aero glass -------------------------------------------------------------
+// The defining trait of the aesthetic: translucent panels with a bright top
+// edge, as though lit from above. Applied to the sidebars and to callouts.
+@mixin aero-glass {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 8px 20px rgba(21, 86, 120, 0.1);
+}
+
+:root[saved-theme="dark"] {
+  .callout,
+  .graph > .graph-outer,
+  #explorer-content,
+  .search > .search-container > .search-space {
+    background: linear-gradient(
+      to bottom,
+      rgba(104, 178, 212, 0.14) 0%,
+      rgba(104, 178, 212, 0.05) 50%,
+      rgba(104, 178, 212, 0.02) 100%
+    );
+    border-color: rgba(120, 190, 225, 0.22);
+    box-shadow:
+      0 1px 0 rgba(160, 220, 245, 0.18) inset,
+      0 8px 20px rgba(0, 0, 0, 0.28);
+  }
+}
+
+.callout {
+  @include aero-glass;
+  border-radius: 10px;
+}
+
+.graph > .graph-outer,
+#explorer-content {
+  @include aero-glass;
+  border-radius: 10px;
+}
+
+// --- headings: glossy, humanist, confident -----------------------------------
+h1,
+h2 {
+  letter-spacing: -0.015em;
+}
+
+// A thin aqua rule under section headings — the "glass shelf" edge the
+// aesthetic uses to separate panels.
+h2 {
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--lightgray);
+  background-image: linear-gradient(
+    to right,
+    var(--secondary) 0%,
+    rgba(53, 180, 143, 0.55) 18%,
+    rgba(0, 0, 0, 0) 55%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  border-bottom-color: transparent;
+}
+
+// --- links: wet, not underlined ----------------------------------------------
+a {
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+a.internal {
+  background-color: rgba(104, 192, 232, 0.14);
+  border-radius: 4px;
+  padding: 0 0.22em;
+
+  &:hover {
+    background-color: rgba(104, 192, 232, 0.3);
+  }
+}
+
+// --- the title in the sidebar ------------------------------------------------
+.page-title,
+.page-title a {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+// --- tables: the vault is mostly tables ---------------------------------------
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(21, 86, 120, 0.08);
+}
+
+thead th {
+  background: linear-gradient(
+    to bottom,
+    rgba(104, 192, 232, 0.22),
+    rgba(104, 192, 232, 0.1)
+  );
+  border-bottom: 1px solid var(--lightgray);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(104, 192, 232, 0.05);
+}
+
+// --- the password gate --------------------------------------------------------
+// This is the first thing most visitors see, so it should look deliberate
+// rather than like an error state. The plugin renders .encrypted-page.
+.encrypted-page {
+  @include aero-glass;
+  border-radius: 14px;
+  margin: 2rem 0;
+}
+
+.encrypted-page-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(21, 86, 120, 0.25));
+}
+
+.encrypted-page-input {
+  border-radius: 8px !important;
+  border: 1px solid var(--lightgray) !important;
+  padding: 0.6rem 0.8rem !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+}
+
+.encrypted-page-submit {
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--secondary) 0%,
+    #0a6b9e 100%
+  ) !important;
+  color: #fff !important;
+  font-weight: 650 !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset !important;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+
+// --- code and quotes ----------------------------------------------------------
+blockquote {
+  border-left: 3px solid var(--secondary);
+  background: rgba(104, 192, 232, 0.07);
+  border-radius: 0 8px 8px 0;
+  padding: 0.6rem 1rem;
+}
+
+// --- respect people who do not want motion or glass --------------------------
+@media (prefers-reduced-transparency: reduce) {
+  .callout,
+  .encrypted-page,
+  .graph > .graph-outer,
+  #explorer-content {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--light);
+  }
+}
