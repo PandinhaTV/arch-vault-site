@@ -127,8 +127,13 @@ plugins:
     enabled: true
   - source: "@quartz-community/og-image"
     enabled: true
+  # DISABLED: this writes a CNAME file from baseUrl, which GitHub Pages reads as
+  # a CUSTOM DOMAIN request. baseUrl here is pandinhatv.github.io/arch-vault-site,
+  # so it emitted "pandinhatv.github.io" — the user-pages apex, not this project.
+  # That fights with serving the project at /arch-vault-site. No custom domain is
+  # in use, so the file should not exist.
   - source: "@quartz-community/cname"
-    enabled: true
+    enabled: false
   - source: "@quartz-community/canvas-page"
     enabled: true
   - source: "@quartz-community/content-page"
