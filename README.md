@@ -77,6 +77,12 @@ It has also been proven to fail: re-enable the ToC plugin and the check blocks t
 
 ## First-time setup
 
+0. **Install dependencies on the machine you build from:**
+   ```bash
+   npm install
+   ```
+   ⚠ `node_modules` is **not portable between operating systems.** esbuild ships a native binary per platform, so a `node_modules` installed on Linux fails on Windows with *"You installed esbuild for another platform"*. If that happens, delete `node_modules` and run `npm install` again on the machine you are building from. Never copy the folder between machines; `package-lock.json` is what travels.
+
 1. `cp site-secrets.example.json site-secrets.json` and set a long passphrase. Share it with the team somewhere that is not this repo.
 2. Create a **public** repo `arch-vault-site` under `PandinhaTV`, then:
    ```bash

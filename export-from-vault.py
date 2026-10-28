@@ -153,7 +153,7 @@ if attachments:
 
 print(f"copied:    {len(found)} notes, {copied_att} attachments -> content/")
 print(f"protected: {n_protected} encrypted, {len(found) - n_protected} open (landing page + any protect: false)")
-print("\ncontent/ is gitignored on purpose — it is the plaintext Quartz encrypts from.")
-print("Only the built site in public/ is published.")
+print("\nNotes written OUTSIDE the repo on purpose — that markdown is the plaintext")
+print("Quartz encrypts from. Only the built site is published.")
 print("\nnext:  python update-site.py        (build + deploy)")
 print("       npx quartz serve             (preview locally)")

@@ -45,8 +45,17 @@ if run(cmd).returncode != 0:
 
 # 2 · build ------------------------------------------------------------------
 print("\n2/4  building (encrypting protected pages)")
+if not os.path.isdir(os.path.join(HERE, "node_modules")):
+    sys.exit("node_modules is missing — run:  npm install")
 shutil.rmtree(PUBLIC, ignore_errors=True)
-ok(["npx", "--yes", "quartz", "build", "-d", CONTENT], shell=(os.name == "nt"))
+if run(["npx", "--yes", "quartz", "build", "-d", CONTENT], shell=(os.name == "nt")).returncode != 0:
+    sys.exit(
+        "\nBuild failed.\n"
+        "If the error mentions esbuild and 'another platform', node_modules was\n"
+        "installed on a different OS. Delete it and reinstall here:\n"
+        "    rmdir /s /q node_modules   (or: rm -rf node_modules)\n"
+        "    npm install\n"
+    )
 
 # 3 · leak check -------------------------------------------------------------
 # Take real sentences out of each protected note and confirm none survived into
