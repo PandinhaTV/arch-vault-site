@@ -124,7 +124,8 @@ print(f"  {checked} protected notes checked, no plaintext in the output")
 
 if args.serve:
     print("\npreviewing — Ctrl+C to stop")
-    run([NPX, "--yes", "quartz", "serve", "-d", CONTENT])
+    # Quartz 5 has no `serve` subcommand — serving is a flag on `build`.
+    run([NPX, "--yes", "quartz", "build", "-d", CONTENT, "--serve"])
     sys.exit(0)
 
 if args.dry_run:

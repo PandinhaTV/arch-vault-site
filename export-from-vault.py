@@ -156,4 +156,4 @@ print(f"protected: {n_protected} encrypted, {len(found) - n_protected} open (lan
 print("\nNotes written OUTSIDE the repo on purpose — that markdown is the plaintext")
 print("Quartz encrypts from. Only the built site is published.")
 print("\nnext:  python update-site.py        (build + deploy)")
-print("       npx quartz serve             (preview locally)")
+print("       python update-site.py --serve (preview locally)")
