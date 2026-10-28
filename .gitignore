@@ -1,0 +1,9 @@
+# Quartz build output and dependencies
+node_modules/
+public/
+.quartz-cache/
+.quartz/plugins/
+
+# content/ IS committed — it is the published subset of the vault,
+# written by export-from-vault.py. The vault itself lives elsewhere
+# and stays private.

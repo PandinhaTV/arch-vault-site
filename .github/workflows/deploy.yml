@@ -1,0 +1,64 @@
+name: Deploy site to GitHub Pages
+
+# The vault is NOT in this repo. Published notes are copied in by
+# export-from-vault.py and committed, so this workflow only builds what is here.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history, so Quartz can read per-file dates from git
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Guard — refuse to build if an unpublished note slipped in
+        run: |
+          # Belt and braces. The export script already filters, and Quartz's
+          # explicit-publish plugin filters again at build time. This fails the
+          # build loudly rather than quietly publishing something.
+          bad=$(grep -rLx --include='*.md' 'publish: true' content || true)
+          if [ -n "$bad" ]; then
+            echo "::error::markdown in content/ without 'publish: true':"
+            echo "$bad"
+            exit 1
+          fi
+          echo "all $(find content -name '*.md' | wc -l) notes carry publish: true"
+
+      - name: Build
+        run: npx quartz build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

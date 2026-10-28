@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" role="img" aria-label="Johnny Boss attack loop state machine">
+<style>
+  text { font-family: "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+  .bg    { fill: #f7f9fb; }
+  .title { fill: #16324a; }
+  .body  { fill: #4a6076; }
+  .muted { fill: #7d93a6; }
+  .box   { fill: #ffffff; stroke: #b9cede; stroke-width: 1.5; }
+  .boxV  { fill: #fff8ec; stroke: #e0a33e; stroke-width: 2.5; }
+  .vT    { fill: #7a4f10; } .vM { fill: #a07f47; }
+  .arrow { stroke: #8fa8bd; fill: none; stroke-width: 2; }
+  .head  { fill: #8fa8bd; }
+  @media (prefers-color-scheme: dark) {
+    .bg    { fill: #22272e; }
+    .title { fill: #e6edf3; }
+    .body  { fill: #adbac7; }
+    .muted { fill: #768390; }
+    .box   { fill: #2d333b; stroke: #444c56; }
+    .boxV  { fill: #3a3226; stroke: #daaa3f; }
+    .vT    { fill: #f0d58a; } .vM { fill: #b6935a; }
+    .arrow { stroke: #636e7b; } .head { fill: #636e7b; }
+  }
+</style>
+  <rect class="bg" width="820" height="300" rx="8"/>
+  <text x="30" y="40" font-size="21" font-weight="700" class="title">Johnny Boss — attack loop</text>
+  <defs><marker id="b" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" class="head"/></marker></defs>
+
+  <rect class="box" x="30" y="106" width="118" height="56" rx="6"/>
+  <text x="62" y="140" font-size="13" font-weight="600" class="title">Chase</text>
+
+  <rect class="box" x="182" y="106" width="118" height="56" rx="6"/>
+  <text x="203" y="133" font-size="13" font-weight="600" class="title">Telegraph</text>
+  <text x="203" y="151" font-size="10.5" class="muted">ring on floor</text>
+
+  <rect class="box" x="334" y="106" width="118" height="56" rx="6"/>
+  <text x="368" y="133" font-size="13" font-weight="600" class="title">Slam</text>
+  <text x="349" y="151" font-size="10.5" class="muted">punch or leap</text>
+
+  <rect class="boxV" x="486" y="106" width="118" height="56" rx="6"/>
+  <text x="504" y="133" font-size="13" font-weight="600" class="vT">Vulnerable</text>
+  <text x="504" y="151" font-size="10.5" class="vM">stomp the back</text>
+
+  <rect class="box" x="638" y="106" width="118" height="56" rx="6"/>
+  <text x="670" y="140" font-size="13" font-weight="600" class="title">Recover</text>
+
+  <path class="arrow" d="M150 134 h28" marker-end="url(#b)"/>
+  <path class="arrow" d="M302 134 h28" marker-end="url(#b)"/>
+  <path class="arrow" d="M454 134 h28" marker-end="url(#b)"/>
+  <path class="arrow" d="M606 134 h28" marker-end="url(#b)"/>
+  <path class="arrow" d="M697 164 v40 H89 v-40" marker-end="url(#b)"/>
+
+  <text x="330" y="222" font-size="11.5" class="muted">loop until dead · 9 health, 3 stomps per phase</text>
+  <text x="30" y="264" font-size="12.5" font-weight="600" class="title">Phases retune timing, they do not add attacks:</text>
+  <text x="30" y="284" font-size="12" class="body">P1 telegraph 1.2s / vulnerable 2.5s   ·   P2 0.9s / 1.8s   ·   P3 0.6s / 1.3s, faster and wider</text>
+</svg>

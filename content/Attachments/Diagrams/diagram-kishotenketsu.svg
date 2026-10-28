@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" width="860" height="500" role="img" aria-label="Kishotenketsu four-part structure">
+<style>
+  text { font-family: "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+  .bg     { fill: #f7f9fb; }
+  .card   { fill: #ffffff; stroke: #b9cede; stroke-width: 1.5; }
+  .cardT  { fill: #fff8ec; stroke: #e0a33e; stroke-width: 2.5; }
+  .title  { fill: #16324a; }
+  .body   { fill: #4a6076; }
+  .muted  { fill: #7d93a6; }
+  .b1 { fill: #5b9bd5; } .b2 { fill: #4f8bc4; } .b3 { fill: #3c6f9f; }
+  .amber { fill: #e0a33e; } .amberD { fill: #c8862a; } .amberT { fill: #7a4f10; }
+  .amberB{ fill: #8a6528; } .amberM { fill: #a07f47; }
+  .arrow { stroke: #9fb6c8; fill: none; stroke-width: 2; }
+  .head  { fill: #9fb6c8; }
+  .panel { fill: #ffffff; stroke: #dbe4ec; }
+  .axis  { stroke: #cdd8e2; stroke-width: 1.5; }
+  .red   { stroke: #c06767; } .redT { fill: #8a4a4a; }
+  .blue  { stroke: #5b9bd5; } .blueT { fill: #3c6f9f; }
+  @media (prefers-color-scheme: dark) {
+    .bg     { fill: #22272e; }
+    .card   { fill: #2d333b; stroke: #444c56; }
+    .cardT  { fill: #3a3226; stroke: #daaa3f; }
+    .title  { fill: #e6edf3; }
+    .body   { fill: #adbac7; }
+    .muted  { fill: #768390; }
+    .b1 { fill: #6cb6ff; } .b2 { fill: #539bf5; } .b3 { fill: #4184e4; }
+    .amber { fill: #daaa3f; } .amberD { fill: #e3b341; }
+    .amberT{ fill: #f0d58a; } .amberB { fill: #d9bc72; } .amberM { fill: #b6935a; }
+    .arrow { stroke: #636e7b; } .head { fill: #636e7b; }
+    .panel { fill: #2d333b; stroke: #444c56; }
+    .axis  { stroke: #444c56; }
+    .red   { stroke: #e5836a; } .redT { fill: #f0a58c; }
+    .blue  { stroke: #6cb6ff; } .blueT { fill: #6cb6ff; }
+  }
+</style>
+  <rect class="bg" width="860" height="500" rx="8"/>
+  <text x="30" y="42" font-size="23" font-weight="700" class="title">Kishōtenketsu — four-part structure</text>
+  <text x="30" y="68" font-size="14" class="body">Development through reframing, not through conflict.</text>
+
+  <rect class="card" x="30" y="92" width="190" height="150" rx="7"/>
+  <rect class="b1" x="30" y="92" width="190" height="7" rx="3"/>
+  <text x="48" y="130" font-size="30" font-weight="700" class="b1">起</text>
+  <text x="92" y="130" font-size="19" font-weight="700" class="title">Ki</text>
+  <text x="48" y="160" font-size="14" font-weight="600" class="title">Introduce</text>
+  <text x="48" y="184" font-size="13" class="body">Show the mechanic in</text>
+  <text x="48" y="202" font-size="13" class="body">its simplest form.</text>
+  <text x="48" y="226" font-size="12" font-style="italic" class="muted">One grapple point.</text>
+
+  <rect class="card" x="240" y="92" width="190" height="150" rx="7"/>
+  <rect class="b2" x="240" y="92" width="190" height="7" rx="3"/>
+  <text x="258" y="130" font-size="30" font-weight="700" class="b2">承</text>
+  <text x="306" y="130" font-size="19" font-weight="700" class="title">Shō</text>
+  <text x="258" y="160" font-size="14" font-weight="600" class="title">Develop</text>
+  <text x="258" y="184" font-size="13" class="body">Same idea, more</text>
+  <text x="258" y="202" font-size="13" class="body">demanding.</text>
+  <text x="258" y="226" font-size="12" font-style="italic" class="muted">A chain of three.</text>
+
+  <rect class="cardT" x="450" y="92" width="190" height="150" rx="7"/>
+  <rect class="amber" x="450" y="92" width="190" height="7" rx="3"/>
+  <text x="468" y="130" font-size="30" font-weight="700" class="amberD">転</text>
+  <text x="516" y="130" font-size="19" font-weight="700" class="amberT">Ten</text>
+  <text x="468" y="160" font-size="14" font-weight="600" class="amberT">Twist</text>
+  <text x="468" y="184" font-size="13" class="amberB">A new angle on the</text>
+  <text x="468" y="202" font-size="13" class="amberB">same idea.</text>
+  <text x="468" y="226" font-size="12" font-style="italic" class="amberM">Grapple the enemy.</text>
+
+  <rect class="card" x="660" y="92" width="170" height="150" rx="7"/>
+  <rect class="b3" x="660" y="92" width="170" height="7" rx="3"/>
+  <text x="678" y="130" font-size="30" font-weight="700" class="b3">結</text>
+  <text x="726" y="130" font-size="19" font-weight="700" class="title">Ketsu</text>
+  <text x="678" y="160" font-size="14" font-weight="600" class="title">Conclude</text>
+  <text x="678" y="184" font-size="13" class="body">Combine everything.</text>
+  <text x="678" y="202" font-size="13" class="body">No new material.</text>
+  <text x="678" y="226" font-size="12" font-style="italic" class="muted">All three at once.</text>
+
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" class="head"/></marker></defs>
+  <path class="arrow" d="M222 167 h14" marker-end="url(#a)"/>
+  <path class="arrow" d="M432 167 h14" marker-end="url(#a)"/>
+  <path class="arrow" d="M642 167 h14" marker-end="url(#a)"/>
+
+  <text x="30" y="298" font-size="16" font-weight="700" class="title">Why it differs from three-act structure</text>
+
+  <rect class="panel" x="30" y="316" width="380" height="152" rx="7"/>
+  <text x="48" y="342" font-size="13" font-weight="600" class="redT">Three-act — escalation</text>
+  <polyline class="red" points="52,442 130,428 210,398 290,352 380,338" fill="none" stroke-width="2.5"/>
+  <line class="axis" x1="48" y1="450" x2="392" y2="450"/>
+  <text x="48" y="466" font-size="11" class="muted">threat increases · player must cope with more</text>
+
+  <rect class="panel" x="440" y="316" width="390" height="152" rx="7"/>
+  <text x="458" y="342" font-size="13" font-weight="600" class="blueT">Kishōtenketsu — reframe</text>
+  <polyline class="blue" points="462,428 545,424 628,360 712,424 800,420" fill="none" stroke-width="2.5"/>
+  <circle class="amber" cx="628" cy="360" r="6"/>
+  <text x="600" y="348" font-size="11" font-weight="600" class="amberM">Ten</text>
+  <line class="axis" x1="458" y1="450" x2="812" y2="450"/>
+  <text x="458" y="466" font-size="11" class="muted">threat flat · understanding changes at the twist</text>
+</svg>

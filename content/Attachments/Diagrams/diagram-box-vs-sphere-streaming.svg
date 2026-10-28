@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Box versus sphere streaming zones on a tall level">
+<style>
+  text { font-family: "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+  .bg    { fill: #f7f9fb; }
+  .title { fill: #16324a; }
+  .body  { fill: #4a6076; }
+  .muted { fill: #7d93a6; }
+  .panelBad  { fill: #ffffff; stroke: #e3c0c0; stroke-width: 1.5; }
+  .panelGood { fill: #ffffff; stroke: #bcd6c4; stroke-width: 1.5; }
+  .badT  { fill: #a34f4f; } .goodT { fill: #3f7a55; }
+  .chunk { fill: #e8eef4; stroke: #b9cede; }
+  .zoneBad  { stroke: #c06767; fill: none; stroke-width: 2; stroke-dasharray: 5 4; }
+  .zoneGood { stroke: #5aa06f; fill: none; stroke-width: 2; stroke-dasharray: 5 4; }
+  .dot   { fill: #c06767; }
+  .player{ fill: #e0a33e; stroke: #a07f47; }
+  .playerT { fill: #8a6528; }
+  @media (prefers-color-scheme: dark) {
+    .bg    { fill: #22272e; }
+    .title { fill: #e6edf3; }
+    .body  { fill: #adbac7; }
+    .muted { fill: #768390; }
+    .panelBad  { fill: #2d333b; stroke: #6b4a4a; }
+    .panelGood { fill: #2d333b; stroke: #46644f; }
+    .badT  { fill: #f0a58c; } .goodT { fill: #7ec98a; }
+    .chunk { fill: #373e47; stroke: #545d68; }
+    .zoneBad  { stroke: #e5836a; } .zoneGood { stroke: #6bc46d; }
+    .dot   { fill: #e5836a; }
+    .player{ fill: #daaa3f; stroke: #f0d58a; }
+    .playerT { fill: #f0d58a; }
+  }
+</style>
+  <rect class="bg" width="800" height="420" rx="8"/>
+  <text x="30" y="40" font-size="21" font-weight="700" class="title">Streaming zones on a tall level</text>
+
+  <rect class="panelBad" x="30" y="62" width="350" height="330" rx="7"/>
+  <text x="50" y="90" font-size="14" font-weight="700" class="badT">Sphere from centre point — breaks</text>
+  <rect class="chunk" x="150" y="112" width="70" height="230"/>
+  <text x="163" y="356" font-size="11" class="muted">tower chunk</text>
+  <circle class="zoneBad" cx="185" cy="240" r="88"/>
+  <circle class="dot" cx="185" cy="240" r="3"/>
+  <text x="196" y="244" font-size="11" class="badT">centre</text>
+  <circle class="player" cx="185" cy="140" r="7"/>
+  <text x="200" y="136" font-size="11" font-weight="600" class="playerT">player</text>
+  <text x="200" y="152" font-size="11" class="badT">outside radius →</text>
+  <text x="200" y="167" font-size="11" font-weight="600" class="badT">chunk unloads</text>
+
+  <rect class="panelGood" x="410" y="62" width="360" height="330" rx="7"/>
+  <text x="430" y="90" font-size="14" font-weight="700" class="goodT">Box wrapping the chunk — works</text>
+  <rect class="chunk" x="540" y="112" width="70" height="230"/>
+  <text x="553" y="356" font-size="11" class="muted">tower chunk</text>
+  <rect class="zoneGood" x="520" y="98" width="110" height="258"/>
+  <circle class="player" cx="575" cy="140" r="7"/>
+  <text x="590" y="136" font-size="11" font-weight="600" class="playerT">player</text>
+  <text x="590" y="152" font-size="11" class="goodT">inside box → distance 0</text>
+  <text x="590" y="167" font-size="11" font-weight="600" class="goodT">chunk stays active</text>
+
+  <text x="430" y="382" font-size="11.5" class="body">Margins EnterRadius / ExitRadius now sit outside the box, not around a point.</text>
+</svg>
