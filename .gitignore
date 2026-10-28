@@ -1,0 +1,14 @@
+# Build output and dependencies. The built site goes to the gh-pages branch.
+node_modules/
+public/
+.quartz-cache/
+.quartz/plugins/
+
+# Local passwords. Never commit.
+site-secrets.json
+
+# NOTE: the notes themselves are not here at all. export-from-vault.py writes
+# them to ../.site-content, outside this repo, because that markdown is the
+# plaintext Quartz encrypts from — committing it to a public repo would publish
+# the plaintext beside the ciphertext. It cannot be gitignored instead, because
+# Quartz respects .gitignore and would skip the files entirely.
