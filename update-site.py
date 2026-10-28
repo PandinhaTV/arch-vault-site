@@ -125,7 +125,11 @@ print(f"  {checked} protected notes checked, no plaintext in the output")
 if args.serve:
     print("\npreviewing — Ctrl+C to stop")
     # Quartz 5 has no `serve` subcommand — serving is a flag on `build`.
-    run([NPX, "--yes", "quartz", "build", "-d", CONTENT, "--serve"])
+    try:
+        run([NPX, "--yes", "quartz", "build", "-d", CONTENT, "--serve"])
+    except KeyboardInterrupt:
+        pass  # Ctrl+C is how you stop the preview, not an error
+    print("\npreview stopped. Nothing was deployed.")
     sys.exit(0)
 
 if args.dry_run:

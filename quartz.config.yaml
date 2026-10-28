@@ -47,9 +47,10 @@ plugins:
     enabled: true
     options:
       defaultDateType: modified
+      # `git` dropped: the notes live outside any repo (see README), so Quartz
+      # would warn "couldn't find git repository" on every build.
       priority:
         - frontmatter
-        - git
         - filesystem
     order: 10
   - source: "@quartz-community/syntax-highlighting"
