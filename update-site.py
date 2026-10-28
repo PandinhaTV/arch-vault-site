@@ -30,6 +30,14 @@ ap.add_argument("--dry-run", action="store_true")
 ap.add_argument("--serve", action="store_true", help="build and preview locally, do not deploy")
 args = ap.parse_args()
 
+IS_WIN = os.name == "nt"
+
+# On Windows, bare `npx` resolves to npx.ps1, which PowerShell refuses to run
+# under the default execution policy ("running scripts is disabled on this
+# system"). The .cmd wrapper has no such restriction, so call it directly
+# rather than asking the user to change a machine-wide security setting.
+NPX = "npx.cmd" if IS_WIN else "npx"
+
 def run(cmd, cwd=HERE, **kw):
     return subprocess.run(cmd, cwd=cwd, text=True, **kw)
 
@@ -48,7 +56,7 @@ print("\n2/4  building (encrypting protected pages)")
 if not os.path.isdir(os.path.join(HERE, "node_modules")):
     sys.exit("node_modules is missing — run:  npm install")
 shutil.rmtree(PUBLIC, ignore_errors=True)
-if run(["npx", "--yes", "quartz", "build", "-d", CONTENT], shell=(os.name == "nt")).returncode != 0:
+if run([NPX, "--yes", "quartz", "build", "-d", CONTENT]).returncode != 0:
     sys.exit(
         "\nBuild failed.\n"
         "If the error mentions esbuild and 'another platform', node_modules was\n"
@@ -116,7 +124,7 @@ print(f"  {checked} protected notes checked, no plaintext in the output")
 
 if args.serve:
     print("\npreviewing — Ctrl+C to stop")
-    run(["npx", "--yes", "quartz", "serve", "-d", CONTENT], shell=(os.name == "nt"))
+    run([NPX, "--yes", "quartz", "serve", "-d", CONTENT])
     sys.exit(0)
 
 if args.dry_run:
