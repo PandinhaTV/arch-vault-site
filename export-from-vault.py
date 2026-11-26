@@ -142,7 +142,10 @@ for p, body, is_open in found:
     if is_open:
         out = with_frontmatter(body, ["publish: true"])
     else:
-        out = with_frontmatter(body, ["publish: true", f"password: {password}", "unlisted: true"])
+        # Not unlisted (since 26 Nov 2026): titles are public anyway — they are in
+        # each page's HTML and file name — so hiding pages from listings only broke
+        # backlinks, folder pages and tag pages. Page contents stay encrypted.
+        out = with_frontmatter(body, ["publish: true", f"password: {password}"])
         n_protected += 1
     io.open(dst, "w", encoding="utf-8").write(out)
     # collect attachments these notes embed, so images are not broken

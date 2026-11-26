@@ -271,9 +271,11 @@ plugins:
     options:
       iterations: 600000
       passwordField: password
-      # Protected pages are hidden from search, graph, explorer, RSS and sitemap
-      # until someone decrypts one. Their metadata is encrypted separately.
-      unlistWhenEncrypted: true
+      # false since 26 Nov 2026: protected pages are LISTED, so backlinks, folder
+      # pages and tag pages include them. Their titles, tags and links are public;
+      # their contents stay encrypted. Titles were public regardless (page HTML
+      # and file names), so unlisting only hid them from our own navigation.
+      unlistWhenEncrypted: false
       outputPath: static/encryptedContentIndex.json
     order: 900
   - source: "@quartz-community/stacked-pages"
