@@ -151,6 +151,11 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
+    options:
+      # Clicking a folder opens/closes it in the sidebar instead of loading a
+      # folder page — folder pages are built before unlock, so they show
+      # nothing for encrypted notes.
+      folderClickBehavior: collapse
     layout:
       position: left
       priority: 50
