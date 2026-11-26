@@ -6,29 +6,65 @@
       <description>Last 10 notes on ARCH Stack Overflow — design vault</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>type</title>
-    <link>https://pandinhatv.github.io/arch-vault-site/tags/type</link>
-    <guid>https://pandinhatv.github.io/arch-vault-site/tags/type</guid>
+    <title>00 Inbox</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/00-inbox/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/00-inbox/</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Thu, 26 Nov 2026 14:50:46 GMT</pubDate>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
   </item><item>
-    <title>type/moc</title>
-    <link>https://pandinhatv.github.io/arch-vault-site/tags/type/moc</link>
-    <guid>https://pandinhatv.github.io/arch-vault-site/tags/type/moc</guid>
+    <title>01 Projects</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Thu, 26 Nov 2026 14:50:46 GMT</pubDate>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
   </item><item>
-    <title>Tag Index</title>
-    <link>https://pandinhatv.github.io/arch-vault-site/tags/</link>
-    <guid>https://pandinhatv.github.io/arch-vault-site/tags/</guid>
+    <title>ARCH Stack Overflow</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Thu, 26 Nov 2026 14:50:46 GMT</pubDate>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
   </item><item>
-    <title>ARCH: Stack Overflow</title>
-    <link>https://pandinhatv.github.io/arch-vault-site/</link>
-    <guid>https://pandinhatv.github.io/arch-vault-site/</guid>
-    <description><![CDATA[ ARCH: Stack Overflow Design documentation for a 3D platformer in development by Grupo 1 — Instituto Politécnico de Bragança, Design de Jogos Digitais, Polo de Mirandela. ]]></description>
-    <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    <title>Design</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>Characters</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>Hub</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/hub/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/hub/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>World 1</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/world-1/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/characters/world-1/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>Interface</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/interface/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/interface/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>Lens Reviews</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/lens-reviews/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/lens-reviews/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
+  </item><item>
+    <title>Levels</title>
+    <link>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/levels/</link>
+    <guid>https://pandinhatv.github.io/arch-vault-site/01-projects/arch-stack-overflow/design/levels/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 26 Nov 2026 15:01:19 GMT</pubDate>
   </item>
     </channel>
   </rss>
