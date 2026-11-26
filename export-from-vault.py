@@ -1,23 +1,33 @@
 #!/usr/bin/env python3
 """
-export-from-vault.py — copy ONLY published notes from the vault into content/.
+export-from-vault.py — copy EVERY note from the vault into content/, encrypted.
 
     python export-from-vault.py              # vault assumed at ../Stack Overflow
     python export-from-vault.py /path/to/vault
 
+What goes up
+------------
+Since 26 Nov 2026 the whole vault goes on the site, behind the password (Diogo's
+decision — "absolutely everything"). Before that, only `publish: true` notes went.
+
+Left out, always:
+  - Templates/, .obsidian/, .trash/  — not content
+  - PDFs                              — the books are copyrighted copies
+  - any note with `publish: false`    — an explicit opt-out, for later use
+
+Every exported note is encrypted with the site password EXCEPT the landing page
+and any note with `protect: false`. Those open notes are readable by anyone, so
+the sensitive check below runs on them, and the export refuses if one trips it.
+
 Why this exists
 ---------------
 Quartz's repo is the site repo, and GitHub Pages on the free plan requires that
-repo to be public. If the vault itself were the site repo, every note would be
-readable as a raw file even though only `publish: true` ones render as pages —
-`Team & Roles` has six people's student numbers, and the skins decisions are the
-team's licensing reasoning.
+repo to be public. The vault repo stays PRIVATE, and this script copies the notes
+OUT of it into ../.site-content (outside both repos). Only the built, encrypted
+site is pushed. The encrypted pages are still public files: someone can download
+them and try to guess the password offline. That is why the password is long.
 
-So the vault repo stays PRIVATE, and this script copies the published subset into
-a separate public repo. Nothing unpublished ever leaves the machine.
-
-It refuses to run if it finds anything sensitive in a note marked for publishing.
-That check mirrors the one in the vault's own check-vault.py — keep them in step.
+The sensitive list mirrors the one in the vault's check-vault.py — keep them in step.
 """
 import io, json, os, re, shutil, sys
 
@@ -28,15 +38,21 @@ VAULT = os.path.abspath(VAULT)
 CONTENT = os.path.join(HERE, "..", ".site-content")  # OUTSIDE the repo — see README
 
 SKIP_DIRS = {".git", ".obsidian", ".trash", "node_modules", "Templates"}
-PUBLISHED = re.compile(r"^publish:\s*true\s*$", re.M)
+OPTED_OUT = re.compile(r"^publish:\s*false\s*$", re.M)
+OPEN = re.compile(r"^protect:\s*false\s*$", re.M)
 COMMENT = re.compile(r"%%.*?%%", re.S)
 
-# Must never appear in a published note, nor in a wikilink title inside one.
+# Quartz takes the site's landing page from content/index.md. The vault keeps it
+# as a normal note so it is edited in Obsidian like everything else.
+LANDING = "Site Home.md"
+
+# Must never appear in an OPEN (unencrypted) note, nor in a wikilink title inside one.
 # Add to this list; never shorten it.
 SENSITIVE = [
     (re.compile(r"\ba(?:5|6)[0-9]{4}\b"), "student number"),
     (re.compile(r"(?i)licen[cs]ed skins?|skins? are kept as parody"), "licensed-skin reasoning"),
-    (re.compile(r"(?i)not for redistribution|read it by OCR"), "book copy provenance"),
+    (re.compile(r"(?i)\bLeandro\b|\bJo[ãa]o Ribeiro\b"), "former team member"),
+    (re.compile(r"(?i)not for redistribution|OCR'?d|read it by OCR"), "book copy provenance"),
 ]
 LINK = re.compile(r"\[\[([^\]|#]*?)(?:#[^\]|]*?)?(?:\|[^\]]*?)?\]\]")
 
@@ -50,15 +66,19 @@ def notes():
 if not os.path.isdir(VAULT):
     sys.exit(f"vault not found: {VAULT}")
 
-found, problems = [], []
+found, problems, skipped = [], [], []
 for p in notes():
     body = io.open(p, encoding="utf-8", errors="replace").read()
-    if not PUBLISHED.search(body):
+    rel = os.path.relpath(p, VAULT).replace(os.sep, "/")
+    if OPTED_OUT.search(body):
+        skipped.append(rel)
         continue
-    found.append((p, body))
+    is_open = rel == LANDING or bool(OPEN.search(body))
+    found.append((p, body, is_open))
+    if not is_open:
+        continue  # encrypted — its contents are not public plaintext
     # Obsidian comments never render, so they are not leaks.
     visible = COMMENT.sub("", body)
-    rel = os.path.relpath(p, VAULT).replace(os.sep, "/")
     for rx, label in SENSITIVE:
         m = rx.search(visible)
         if m:
@@ -70,28 +90,21 @@ for p in notes():
                 problems.append(f"{rel}: {label} in link title — [[{title}]]")
 
 print(f"vault:     {VAULT}")
-print(f"published: {len(found)} notes")
+print(f"exporting: {len(found)} notes ({len(skipped)} opted out with publish: false)")
 
 if problems:
-    print("\nREFUSING TO EXPORT — sensitive content in published notes:")
+    print("\nREFUSING TO EXPORT — sensitive content in an OPEN (unencrypted) note:")
     for x in sorted(set(problems)):
         print("  " + x)
-    print("\nFix the note, or remove its publish: true, then run again.")
+    print("\nFix the note, or remove its protect: false, then run again.")
     sys.exit(1)
 
-# Rebuild content/ from scratch so unpublishing a note removes its page.
+# Rebuild content/ from scratch so deleting a note removes its page.
 if os.path.isdir(CONTENT):
     shutil.rmtree(CONTENT)
 os.makedirs(CONTENT)
 
-# Quartz takes the site's landing page from content/index.md. The vault keeps it
-# as a normal note so it is edited in Obsidian like everything else.
-LANDING = "Site Home.md"
-
 # ---- password injection ---------------------------------------------------
-# Every page is encrypted EXCEPT the landing page, which is the front door.
-# A note can opt out with `protect: false` in its frontmatter.
-#
 # The password is injected here rather than stored in the vault, because the
 # note's markdown is the plaintext Quartz encrypts from — a password living in
 # frontmatter would travel with the note into any copy of it.
@@ -106,30 +119,32 @@ if "CHANGE-ME" in password:
 if len(password) < 16:
     sys.exit("password is under 16 characters. These are public files attackable offline; use a long passphrase")
 
-OPT_OUT = re.compile(r"^protect:\s*false\s*$", re.M)
+PUBLISH_LINE = re.compile(r"^publish:.*$", re.M)
 
-def protect(body):
-    """Add password + unlisted to a note's frontmatter."""
+def with_frontmatter(body, lines):
+    """Add lines to a note's frontmatter, creating the block if there is none.
+    Any existing publish: line is replaced — the explicit-publish plugin needs
+    publish: true on every page that should render."""
     end = body.find("\n---", 3)
     if not body.startswith("---") or end < 0:
-        return "---\n" + f"password: {password}\nunlisted: true\n" + "---\n\n" + body
-    inject = f"\npassword: {password}\nunlisted: true"
-    return body[:end] + inject + body[end:]
+        return "---\n" + "\n".join(lines) + "\n---\n\n" + body
+    fm = PUBLISH_LINE.sub("", body[:end]).rstrip("\n")
+    return fm + "\n" + "\n".join(lines) + body[end:]
 
 attachments = set()
 n_protected = 0
-for p, body in found:
+for p, body, is_open in found:
     rel = os.path.relpath(p, VAULT)
-    is_landing = rel == LANDING
-    if is_landing:
+    if rel == LANDING:
         rel = "index.md"
     dst = os.path.join(CONTENT, rel)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    if is_landing or OPT_OUT.search(body):
-        shutil.copy2(p, dst)
+    if is_open:
+        out = with_frontmatter(body, ["publish: true"])
     else:
-        io.open(dst, "w", encoding="utf-8").write(protect(body))
+        out = with_frontmatter(body, ["publish: true", f"password: {password}", "unlisted: true"])
         n_protected += 1
+    io.open(dst, "w", encoding="utf-8").write(out)
     # collect attachments these notes embed, so images are not broken
     for m in re.finditer(r"!\[\[([^\]|#]+?)(?:\|[^\]]*?)?\]\]", body):
         attachments.add(m.group(1).strip())
