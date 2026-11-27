@@ -131,9 +131,34 @@ def with_frontmatter(body, lines):
     fm = PUBLISH_LINE.sub("", body[:end]).rstrip("\n")
     return fm + "\n" + "\n".join(lines) + body[end:]
 
+# ---- site tables ------------------------------------------------------------
+# Dataview does not run on the site. A Dataview block preceded by a
+# `%% site: epics-table ... %%` comment is replaced with a plain markdown table
+# built here from the epic notes, so the site shows the same progress Obsidian does.
+EPICS_BLOCK = re.compile(r"%% site: epics-table.*?%%\s*```dataview.*?```", re.S)
+FM_FIELD = lambda body, k: (re.search(rf"^{k}:[ \t]*(.*?)[ \t]*$", body.split("\n---", 1)[0], re.M) or [None, ""])[1]
+
+def epics_table(folder):
+    rows = []
+    for f in sorted(os.listdir(folder)):
+        if not f.endswith(".md"):
+            continue
+        b = io.open(os.path.join(folder, f), encoding="utf-8", errors="replace").read()
+        if FM_FIELD(b, "type") != "epic":
+            continue
+        m = re.search(r"^## Stories[ \t]*$(.*?)(?=^## |\Z)", COMMENT.sub("", b), re.M | re.S)
+        boxes = re.findall(r"^\s*- \[(.)\]\s*\S", m.group(1), re.M) if m else []
+        done = sum(1 for x in boxes if x.lower() == "x")
+        pct = f" ({round(100 * done / len(boxes))}%)" if boxes else ""
+        rows.append(f"| [[{f[:-3]}]] | {FM_FIELD(b, 'owner') or '—'} | {done} / {len(boxes)}{pct} | {FM_FIELD(b, 'target') or '—'} |")
+    head = "| Epic | Owner | Stories done | Target |\n|---|---|---|---|"
+    return head + "\n" + "\n".join(rows) + "\n\n*Built at the last site update.*"
+
 attachments = set()
 n_protected = 0
 for p, body, is_open in found:
+    if EPICS_BLOCK.search(body):
+        body = EPICS_BLOCK.sub(lambda _: epics_table(os.path.dirname(p)), body)
     rel = os.path.relpath(p, VAULT)
     if rel == LANDING:
         rel = "index.md"
