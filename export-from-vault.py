@@ -191,7 +191,10 @@ if attachments:
         for f in files:
             index.setdefault(f, os.path.join(root, f))
     for name in attachments:
-        src = index.get(name)
+        # ![[Attachments/Art/…/x.png]] — a full vault path (the Art Gallery uses
+        # these because several images share a file name); otherwise a bare name.
+        full = os.path.join(VAULT, *name.split("/"))
+        src = full if "/" in name and os.path.isfile(full) else index.get(name)
         if not src or src.lower().endswith(".pdf"):   # never ship book/GDD PDFs
             continue
         rel = os.path.relpath(src, VAULT)
