@@ -154,9 +154,15 @@ def epics_table(folder):
     head = "| Epic | Owner | Stories done | Target |\n|---|---|---|---|"
     return head + "\n" + "\n".join(rows) + "\n\n*Built at the last site update.*"
 
+# obsidian:// links (e.g. the "New epic" button) only work inside Obsidian.
+# A callout that holds one is dropped whole; any other such link becomes plain text.
+OBSIDIAN_CALLOUT = re.compile(r"^>.*\]\(obsidian://[^)]*\).*\n(?:>.*\n?)*", re.M)
+OBSIDIAN_LINK = re.compile(r"\[([^\]]*)\]\(obsidian://[^)]*\)")
+
 attachments = set()
 n_protected = 0
 for p, body, is_open in found:
+    body = OBSIDIAN_LINK.sub(r"\1", OBSIDIAN_CALLOUT.sub("", body))
     if EPICS_BLOCK.search(body):
         body = EPICS_BLOCK.sub(lambda _: epics_table(os.path.dirname(p)), body)
     rel = os.path.relpath(p, VAULT)
